@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello List</title>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Time</th>
+        </tr>
+        <tr th:each="detail: ${details}">
+            <td th:text="${detail.id}">ID</td>
+            <td th:text="${detail.name}">Name</td>
+            <td th:text="${detail.date}">Date</td>
+        </tr>
+    </table>
+</body>
+</html>
