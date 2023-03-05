@@ -1,10 +1,12 @@
 package com.sa.sa1.data;
 
 import com.sa.sa1.beans.HelloBean;
+import com.sa.sa1.utilities.ApplicationContextProvider;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 
 @Data
 @NoArgsConstructor
@@ -14,7 +16,20 @@ public class HelloResponse {
     @Autowired
     private HelloBean helloBean;
 
-    public void setData(String name){
-        data = helloBean.getTxt() + name;
+    private ApplicationContextProvider applicationContextProvider;
+
+    public void setData(String name) {
+        if (helloBean == null) {
+            if (applicationContextProvider != null) {
+                helloBean = applicationContextProvider.getApplicationContext().getBean(HelloBean.class);
+            }
+            if (helloBean == null) {
+                data = name;
+            } else {
+                data = helloBean.getTxt() + name;
+            }
+        } else {
+            data = helloBean.getTxt() + name;
+        }
     }
 }
