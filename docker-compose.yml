@@ -1,0 +1,37 @@
+version: '3'
+services:
+#  artemis:
+#    image: quay.io/artemiscloud/activemq-artemis-broker
+#    build:
+#      - "create testQueue --user sona --password vibu --require-login"
+#    ports:
+#      - 8161:8161
+#      - 9404:9404
+#      - 9876:9876
+#      - 61616:61616
+#      - 5445:5445
+#      - 5672:5672
+#      - 1883:1883
+#      - 61613:61613
+#      - 5432:5432
+#    environment:
+#      AMQ_USER: sona
+#      AMQ_PASSWORD: vibu
+#      AMQ_NAME: testQueue
+#    healthcheck:
+#      test: ["CMD", "curl", "-f", "http://172.23.0.2:61616"]
+#      interval: 10s
+#      timeout: 3s
+#      retries: 10
+#    command:
+#      - sleep 100 ; activemq-artemis-broker
+  sa1:
+    image: vini/sa1:0.0.1-SNAPSHOT
+#    depends_on:
+#      artemis:
+#        condition: service_started
+#    links:
+#      - artemis
+    ports:
+      - "9090:9090"
+    container_name: "HelloWorld"
