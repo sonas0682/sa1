@@ -25,13 +25,25 @@ services:
 #      retries: 10
 #    command:
 #      - sleep 100 ; activemq-artemis-broker
+  sa1config:
+    image: vini/sa1config:0.0.1-SNAPSHOT
+    ports:
+      - "9071:9071"
+    container_name: "sa1config"
+    network_mode: bridge
   sa1:
     image: vini/sa1:0.0.1-SNAPSHOT
+    depends_on:
+      - sa1config
 #    depends_on:
 #      artemis:
 #        condition: service_started
 #    links:
 #      - artemis
+    environment:
+      SPRING_PROFILES_ACTIVE: "dev"
+      SPRING_CLOUD_CONFIG_SERVER: http://sa1config:9071
     ports:
       - "9090:9090"
     container_name: "HelloWorld"
+    network_mode: bridge

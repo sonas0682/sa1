@@ -8,6 +8,7 @@ import jakarta.jms.JMSContext;
 import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 import org.apache.activemq.artemis.jms.client.ActiveMQQueue;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.codec.cbor.Jackson2CborDecoder;
@@ -18,6 +19,7 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.messaging.rsocket.RSocketRequester;
 import org.springframework.messaging.rsocket.RSocketStrategies;
 import org.springframework.util.MimeTypeUtils;
+import org.springframework.web.client.RestTemplate;
 import reactor.util.retry.Retry;
 
 import java.net.URI;
@@ -58,6 +60,9 @@ public class HelloConfiguration {
         return requester;
     }
 
-
-
+    @LoadBalanced
+    @Bean
+    public RestTemplate getRestTemplate(){
+        return new RestTemplate();
+    }
 }
